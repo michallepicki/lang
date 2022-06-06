@@ -9,7 +9,17 @@ pub fn main() {
 
 // gleeunit test functions end in `_test`
 pub fn parse_test() {
-  ast.from_file("testfile.lang")
+  ast.from_string(
+    "module {
+  fn some(x, y) : (A, B) -> B {
+    10
+  }
+  fn other() : () -> C {
+    100
+  }
+}
+",
+  )
   |> should.equal(ast.Module(functions: [
     ast.Function(
       name: charlist.from_string("some"),

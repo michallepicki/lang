@@ -1,10 +1,11 @@
 -module(lang_ffi).
--export([lex_and_parse/1]).
+-export([lex_and_parse_file/1, lex_and_parse_string/1]).
 
-lex_and_parse(FilenameBinary) ->
-    Filename = unicode:characters_to_list(FilenameBinary),
-    {ok, SourceBinary} = file:read_file(Filename),
-    Source = unicode:characters_to_list(SourceBinary),
-    {ok, Tokens, _} = lang_lexer:string(Source),
+lex_and_parse_file(Filename) when is_binary(Filename) ->
+    {ok, SourceBinary} = file:read_file(unicode:characters_to_list(Filename)),
+    lex_and_parse_string(SourceBinary).
+
+lex_and_parse_string(Source) when is_binary(Source) ->
+    {ok, Tokens, _} = lang_lexer:string(unicode:characters_to_list(Source)),
     {ok, Ast} = lang_parser:parse(Tokens),
     Ast.

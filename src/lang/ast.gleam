@@ -23,4 +23,7 @@ pub type Expr {
 }
 
 pub external fn from_file(file_name: String) -> Module =
-  "lang_ffi" "lex_and_parse"
+  "lang_ffi" "lex_and_parse_file"
+
+pub external fn from_string(source_code: String) -> Module =
+  "lang_ffi" "lex_and_parse_string"
