@@ -1,5 +1,9 @@
 module {
-    fn some(x : Int) -> Int {
+    fn some(x, y) : (A, B) -> B {
         10
+    }
+
+    fn other() :  () -> C {
+        100
     }
 }

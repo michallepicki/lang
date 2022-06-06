@@ -9,16 +9,28 @@ pub fn main() {
 
 // gleeunit test functions end in `_test`
 pub fn parse_test() {
-  let int_type = ast.NamedType(name: charlist.from_string("Int"))
   ast.from_file("testfile.lang")
   |> should.equal(ast.Module(functions: [
     ast.Function(
       name: charlist.from_string("some"),
-      args: [
-        ast.FunctionArg(name: charlist.from_string("x"), arg_type: int_type),
-      ],
-      return_type: int_type,
+      arg_names: [charlist.from_string("x"), charlist.from_string("y")],
+      function_type: ast.FunctionType(
+        arg_types: [
+          ast.TypeName(name: charlist.from_string("A")),
+          ast.TypeName(name: charlist.from_string("B")),
+        ],
+        return_type: ast.TypeName(name: charlist.from_string("B")),
+      ),
       body: ast.IntegerLiteral(value: 10),
+    ),
+    ast.Function(
+      name: charlist.from_string("other"),
+      arg_names: [],
+      function_type: ast.FunctionType(
+        arg_types: [],
+        return_type: ast.TypeName(name: charlist.from_string("C")),
+      ),
+      body: ast.IntegerLiteral(value: 100),
     ),
   ]))
 }

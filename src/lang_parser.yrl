@@ -1,6 +1,7 @@
 Nonterminals
-    module_parser module_functions_parser top_lvl_function_parser top_lvl_function_args_parser
-    top_lvl_function_arg_parser type_parser function_body_parser expr_parser.
+    module_parser module_functions_parser top_lvl_function_parser args_parser
+    arg_names_parser type_parser function_arg_types_parser types_list_parser
+    function_body_parser expr_parser.
 Terminals
     'module' '{' '}' 'fn' '(' ')' ',' ':' '->' identifier type_name integer.
 Rootsymbol
@@ -14,24 +15,44 @@ function_body_parser ->
     expr_parser
         : '$1'.
 
-type_parser ->
-    type_name
-        : {'named_type', element(3, '$1')}.
-
-top_lvl_function_arg_parser ->
-    identifier ':' type_parser
-        : {'function_arg', element(3, '$1'), '$3'}.
-
-top_lvl_function_args_parser ->
-    top_lvl_function_arg_parser ',' top_lvl_function_args_parser
+types_list_parser ->
+    type_parser ',' types_list_parser
         : ['$1' | '$3'].
-top_lvl_function_args_parser ->
-    top_lvl_function_arg_parser
+types_list_parser ->
+    type_parser
         : ['$1'].
 
+function_arg_types_parser ->
+    '(' ')'
+        : [].
+function_arg_types_parser ->
+    '(' types_list_parser ')'
+        : '$2'.
+
+type_parser ->
+    function_arg_types_parser '->' type_parser
+        : {'function_type', '$1', '$3'}.
+type_parser ->
+    type_name
+        : {'type_name', element(3, '$1')}.
+
+arg_names_parser ->
+    identifier ',' arg_names_parser
+        : [element(3, '$1') | '$3'].
+arg_names_parser ->
+    identifier
+        : [element(3, '$1')].
+
+args_parser ->
+    '(' ')'
+        : [].
+args_parser ->
+    '(' arg_names_parser ')'
+        : '$2'.
+
 top_lvl_function_parser ->
-    'fn' identifier '(' top_lvl_function_args_parser ')' '->' type_parser '{' function_body_parser '}'
-        : {'function', element(3, '$2'), '$4', '$7', '$9'}.
+    'fn' identifier args_parser ':' type_parser '{' function_body_parser '}'
+        : {'function', element(3, '$2'), '$3', '$5', '$7'}.
 
 module_functions_parser ->
     top_lvl_function_parser module_functions_parser

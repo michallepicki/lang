@@ -7,18 +7,15 @@ pub type Module {
 pub type Function {
   Function(
     name: Charlist,
-    args: List(FunctionArg),
-    return_type: Type,
+    arg_names: List(Charlist),
+    function_type: Type,
     body: Expr,
   )
 }
 
-pub type FunctionArg {
-  FunctionArg(name: Charlist, arg_type: Type)
-}
-
 pub type Type {
-  NamedType(name: Charlist)
+  FunctionType(arg_types: List(Type), return_type: Type)
+  TypeName(name: Charlist)
 }
 
 pub type Expr {

@@ -6,10 +6,9 @@ pub fn main() {
   let module = ast.from_file("testfile.lang")
   assert Ok(function) = list.at(module.functions, 0)
   io.debug(function.name)
-  assert Ok(function_arg) = list.at(function.args, 0)
-  io.debug(function_arg.name)
-  io.debug(function_arg.arg_type)
-  io.debug(function.return_type)
+  assert Ok(arg_name) = list.at(function.arg_names, 0)
+  io.debug(arg_name)
+  io.debug(function.function_type)
   io.debug(function.body)
   module
 }
