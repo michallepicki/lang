@@ -1,6 +1,4 @@
 import gleam/io
-import gleam/dynamic.{Dynamic}
-import gleam/erlang/charlist.{Charlist}
 import gleam/list
 import lang/ast
 
