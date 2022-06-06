@@ -5,7 +5,14 @@ A Gleam project
 ## Quick start
 
 ```sh
-gleam run   # Run the project
-gleam test  # Run the tests
-gleam shell # Run an Erlang shell
+# Compile lexer and parser:
+gleam shell
+# 1> lang:recompile_lexer().
+# 2> lang:recompile_parser().
+
+# Run tests:
+gleam test
+
+# Run on testfile.lang:
+gleam run
 ```

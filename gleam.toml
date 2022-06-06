@@ -6,11 +6,13 @@ version = "0.1.0"
 #
 # licences = ["Apache-2.0"]
 # description = "A Gleam library..."
-# repository = { type = "github", user = "username", repo = "project" }
 # links = [{ title = "Website", href = "https://gleam.run" }]
+
+repository = { type = "github", user = "michallepicki", repo = "lang" }
 
 [dependencies]
 gleam_stdlib = "~> 0.21"
+gleam_erlang = "~> 0.9"
 
 [dev-dependencies]
 gleeunit = "~> 0.6"

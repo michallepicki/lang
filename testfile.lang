@@ -1,0 +1,5 @@
+module {
+    fn some(x : Int) -> Int {
+        10
+    }
+}
