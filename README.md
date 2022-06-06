@@ -6,9 +6,7 @@ A Gleam project
 
 ```sh
 # Compile lexer and parser:
-gleam shell
-# 1> lang:recompile_lexer().
-# 2> lang:recompile_parser().
+erl -noshell -eval 'leex:file("src/lang_lexer"),yecc:file("src/lang_parser"),init:stop().'
 
 # Run tests:
 gleam test
