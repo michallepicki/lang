@@ -16,6 +16,7 @@ fn           : {'token', {'fn', TokenLine}}.
 ,            : {'token', {',', TokenLine}}.
 :            : {'token', {':', TokenLine}}.
 ->           : {'token', {'->', TokenLine}}.
+=            : {'token', {'=', TokenLine}}.
 {IDENTIFIER} : {'token', {'identifier', TokenLine, TokenChars}}.
 {TYPE_NAME}  : {'token', {'type_name', TokenLine, TokenChars}}.
 {INTEGER}    : {'token', {'integer', TokenLine, list_to_integer(TokenChars)}}.

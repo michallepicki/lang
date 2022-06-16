@@ -11,10 +11,12 @@ pub fn main() {
 pub fn parse_test() {
   ast.from_string(
     "module {
-  fn some(x, y) : (A, B) -> B {
+  fn some : (A, B) -> B =
+  (x, y) -> {
     10
   }
-  fn other() : () -> C {
+  fn other : () -> C =
+  () -> {
     100
   }
 }

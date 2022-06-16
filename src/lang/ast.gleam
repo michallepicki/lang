@@ -7,8 +7,8 @@ pub type Module {
 pub type Function {
   Function(
     name: Charlist,
-    arg_names: List(Charlist),
     function_type: Type,
+    arg_names: List(Charlist),
     body: Expr,
   )
 }

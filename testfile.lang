@@ -1,9 +1,11 @@
 module {
-    fn some(x, y) : (A, B) -> B {
+    fn some : (A, B) -> B =
+    (x, y) -> {
         10
     }
 
-    fn other() :  () -> C {
+    fn other : () -> C =
+    () -> {
         100
     }
 }

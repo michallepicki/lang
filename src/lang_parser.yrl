@@ -3,7 +3,7 @@ Nonterminals
     arg_names_parser type_parser function_arg_types_parser types_list_parser
     function_body_parser expr_parser.
 Terminals
-    'module' '{' '}' 'fn' '(' ')' ',' ':' '->' identifier type_name integer.
+    'module' '{' '}' 'fn' '(' ')' ',' ':' '->' '=' identifier type_name integer.
 Rootsymbol
     module_parser.
 
@@ -51,8 +51,8 @@ args_parser ->
         : '$2'.
 
 top_lvl_function_parser ->
-    'fn' identifier args_parser ':' type_parser '{' function_body_parser '}'
-        : {'function', element(3, '$2'), '$3', '$5', '$7'}.
+    'fn' identifier ':' type_parser '=' args_parser '->' '{' function_body_parser '}'
+        : {'function', element(3, '$2'), '$4', '$6', '$9'}.
 
 module_functions_parser ->
     top_lvl_function_parser module_functions_parser
