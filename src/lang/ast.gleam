@@ -19,6 +19,7 @@ pub type Type {
 }
 
 pub type Expr {
+  ExprSeq(expressions: List(Expr))
   IntegerLiteral(value: Int)
 }
 

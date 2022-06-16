@@ -1,19 +1,25 @@
 Nonterminals
     module_parser module_functions_parser top_lvl_function_parser args_parser
     arg_names_parser type_parser function_arg_types_parser types_list_parser
-    function_body_parser expr_parser.
+    expr_parser expr_seq_parser.
 Terminals
-    'module' '{' '}' 'fn' '(' ')' ',' ':' '->' '=' identifier type_name integer.
+    'module' '{' '}' 'fn' '(' ')' ',' ':' '->' '=' ';' identifier type_name integer.
 Rootsymbol
     module_parser.
 
-expr_parser->
+expr_seq_parser ->
+    expr_parser ';' expr_seq_parser
+        : ['$1' | '$3'].
+expr_seq_parser ->
+    expr_parser
+        : ['$1'].
+
+expr_parser ->
     integer
         : {'integer_literal', element(3, '$1')}.
-
-function_body_parser ->
-    expr_parser
-        : '$1'.
+expr_parser ->
+    '{' expr_seq_parser '}'
+        : {'expr_seq', '$2'}.
 
 types_list_parser ->
     type_parser ',' types_list_parser
@@ -51,8 +57,8 @@ args_parser ->
         : '$2'.
 
 top_lvl_function_parser ->
-    'fn' identifier ':' type_parser '=' args_parser '->' '{' function_body_parser '}'
-        : {'function', element(3, '$2'), '$4', '$6', '$9'}.
+    'fn' identifier ':' type_parser '=' args_parser '->' expr_parser
+        : {'function', element(3, '$2'), '$4', '$6', '$8'}.
 
 module_functions_parser ->
     top_lvl_function_parser module_functions_parser

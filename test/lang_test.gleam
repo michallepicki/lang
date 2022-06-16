@@ -13,12 +13,11 @@ pub fn parse_test() {
     "module {
   fn some : (A, B) -> B =
   (x, y) -> {
-    10
-  }
-  fn other : () -> C =
-  () -> {
+    10;
     100
   }
+  fn other : () -> C =
+  () -> 1000
 }
 ",
   )
@@ -33,7 +32,10 @@ pub fn parse_test() {
         ],
         return_type: ast.TypeName(name: charlist.from_string("B")),
       ),
-      body: ast.IntegerLiteral(value: 10),
+      body: ast.ExprSeq(expressions: [
+        ast.IntegerLiteral(value: 10),
+        ast.IntegerLiteral(value: 100),
+      ]),
     ),
     ast.Function(
       name: charlist.from_string("other"),
@@ -42,7 +44,7 @@ pub fn parse_test() {
         arg_types: [],
         return_type: ast.TypeName(name: charlist.from_string("C")),
       ),
-      body: ast.IntegerLiteral(value: 100),
+      body: ast.IntegerLiteral(value: 1000),
     ),
   ]))
 }
