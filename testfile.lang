@@ -1,10 +1,24 @@
 module {
-    fn some : (A, B) -> B =
-    (x, y) -> 10
-
-    fn other : () -> C =
-    () -> {
-        100;
-        120
+  
+  type MyType<a>
+    | Int
+    | #{Int, a}
+  
+  fn some_function<b> (i : Int, x : b) -> MyType<b> = {
+    fun_call(x);
+    case i {
+      10 -> #{i, x}
+      _ -> i
+    }
+  }
+  
+  fn other () -> MyIntWithExtra<a> = 1000
+  
+  fn withcase () -> Int =
+    case other() {
+        #{Int(i), _} -> i
+        y -> y
+        _y -> 1
+        _ -> 2
     }
 }
